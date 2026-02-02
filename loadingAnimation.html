@@ -5,22 +5,38 @@
   <title>Loading Animation Simulator</title>
 </head>
 <body style="font-family: monospace; text-align: center; padding-top: 100px; background-color: #f4f4f4;">
-
-  <div id="loader" style="font-size: 2rem; margin-bottom: 20px;">Loading...</div>
+  <!-- Display the text "Loading...", then display the text "Please wait" -->
+  <div id="loader" style="font-size: 2rem; margin-bottom: 20px;">Loading...</div> 
   <div id="status">Please wait</div>
 
   <script>
+    /* runLoadingAnimation is a function that plays the animation of a spinning hourglass
+    and a loading "bar" until the operation is complete, at which point it displays a green checkmark.
+    */
     function runLoadingAnimation() {
       const loader = document.getElementById("loader");
       const status = document.getElementById("status");
 
-      const frames = ["⏳", "⌛", ".", "..", "..."];
+      const frames = ["⏳", "⌛", ".", "..", "..."];  // The various screens that will be shown while user is asked to "Please wait"
       let index = 0;
       let cycleCount = 0;
       const maxCycles = 10;
 
-      const interval = setInterval(() => {
-        loader.textContent = frames[index % frames.length];
+      const interval = setInterval(() => {    // setInterval is a built-in function that repeats something for every interval, which is the second parameter     
+        /* In the next line of code, textContent is a method that accesses the text inside the 
+        HTML tag type specified in "loader" variable, which was the text "Loading...".
+        This creates a direct access to that HTML content.
+        That "Loading..." text is replaced by the frame/screen chosen at the right of the =.
+        This is how the DOM is updated.
+        index % frames.length because uses the remainder of the (index / 5), which will be between 0 and 5,
+        to show the next frame. Because index is increasing by 1, while frames.length stays the same,
+        the frame will just move by one index, so timer empty, timer full, ., .., ....
+        If the remainder is 0, then one full cycle of waiting has been complete,
+        and you increase the cycleCount until you reach the max number of cycles, which is 10,
+        at which point, you no longer load the 'loading' frames and instead load the green checkmark.  
+        This frame is changed for every half second, given the '500' ms argument.
+        */
+        loader.textContent = frames[index % frames.length]; 
         index++;
         if (index % frames.length === 0) {
           cycleCount++;
@@ -28,13 +44,14 @@
         if (cycleCount >= maxCycles) {
           clearInterval(interval);
           loader.textContent = "✅";
-          status.textContent = "Done!";
-        }
-      }, 500);
+          status.textContent = "Done!"; // Status also starts out as "Please wait"
+        }                               // But after hitting the 10th cycle, it becomes Done
+      }, 500);                          // directly due to the textContent method
     }
 
-    runLoadingAnimation();
-  </script>
+    runLoadingAnimation();              // This calls the function, where the function 
+                                        // specifies how many times the spinner is suppposed to run, essentially.
+  </script>                              
 
 </body>
 </html>
