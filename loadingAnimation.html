@@ -42,7 +42,10 @@
           cycleCount++;
         }
         if (cycleCount >= maxCycles) {
-          clearInterval(interval);
+          /*
+          clearInterval is a built-in command that stops the interval from continuing to count.
+          */
+          clearInterval(interval);       
           loader.textContent = "✅";
           status.textContent = "Done!"; // Status also starts out as "Please wait"
         }                               // But after hitting the 10th cycle, it becomes Done
@@ -55,3 +58,12 @@
 
 </body>
 </html>
+
+<!-- 
+1 CREATIVE IDEA:
+For this specific code, I would add a '#/10' to indicate at which cycle the timer was in.
+Initially, I thought this was infinite, so I switched to a different tab.
+Then, when I returned, I saw a green checkbox, and refreshed the page to 
+manually track how many cycles there were. To avoid user confusion about the timer running infinitely,
+I would add the cycle number.
+-->
