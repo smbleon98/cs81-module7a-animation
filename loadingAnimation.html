@@ -20,7 +20,7 @@
       const frames = ["⏳", "⌛", ".", "..", "..."];  // The various screens that will be shown while user is asked to "Please wait"
       let index = 0;
       let cycleCount = 0;
-      const maxCycles = 10;
+      const maxCycles = 10;   // The # of times the timer will spin for
 
       const interval = setInterval(() => {    // setInterval is a built-in function that repeats something for every interval, which is the second parameter     
         /* In the next line of code, textContent is a method that accesses the text inside the 
@@ -40,6 +40,7 @@
         index++;
         if (index % frames.length === 0) {
           cycleCount++;
+          status.textContent = `Please wait... ${cycleCount} / ${maxCycles}`;     // Implemented suggestion, where it shows '#/10' stage
         }
         if (cycleCount >= maxCycles) {
           /*
